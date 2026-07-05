@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Product Builder — Build & Sell Your First AI-Powered Digital Product</title>
+<meta name="description" content="A practitioner-led system for building and shipping your first AI-powered digital product. Take the 90-second quiz to find your path.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F1115;
+    --paper:#F6F5F1;
+    --paper-2:#ECEAE2;
+    --graphite:#3A3D42;
+    --line:#D8D5C9;
+    --accent:#2B6E5E;      /* deep teal-green: "build/ship" signal */
+    --accent-2:#E8A33D;    /* amber: highlight / warning-free warmth */
+    --accent-3:#C4482E;    /* rust red for "gimmick" contrast callouts */
+    --white:#FFFFFF;
+    --code-bg:#14171C;
+    --code-line:#232830;
+    --shadow: 0 14px 34px rgba(15,17,21,0.12);
+    --radius: 3px;
+    --display: "Space Grotesk", sans-serif;
+    --mono: "IBM Plex Mono", monospace;
+    --sans: "Inter", -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:.001ms !important; transition-duration:.001ms !important;} }
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); line-height:1.55; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:var(--display); font-weight:600; color:var(--ink); margin:0 0 .4em; letter-spacing:-0.01em;}
+  a{color:inherit;} button{font-family:var(--sans); cursor:pointer;}
+  :focus-visible{outline:3px solid var(--accent-2); outline-offset:2px;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 24px;}
+  .mono-tag{font-family:var(--mono); font-size:12.5px; color:var(--accent); letter-spacing:0.02em;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:84px 0 60px; border-bottom:1px solid var(--line);}
+  .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;}
+  .eyebrow{display:flex; align-items:center; gap:10px; margin-bottom:18px;}
+  .eyebrow .mono-tag{background:var(--paper-2); border:1px solid var(--line); padding:5px 10px; border-radius:20px;}
+  .hero h1{font-size:clamp(34px,4.6vw,52px); line-height:1.08;}
+  .hero h1 .hl{color:var(--accent);}
+  .hero p.sub{font-size:17.5px; color:var(--graphite); max-width:48ch; margin:20px 0 30px;}
+  .cta-row{display:flex; gap:16px; flex-wrap:wrap; align-items:center;}
+  .btn{display:inline-flex; align-items:center; gap:10px; padding:15px 28px; border-radius:var(--radius); border:none; font-size:15.5px; font-weight:600; text-decoration:none; transition:transform .15s ease;}
+  .btn-primary{background:var(--ink); color:var(--white); box-shadow:var(--shadow);}
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost{background:transparent; color:var(--ink); border:1.5px solid var(--ink); padding:13.5px 26px;}
+  .microcopy{margin-top:14px; font-size:13px; color:var(--graphite);}
+
+  /* Browser mockup — signature element / "image" replacement */
+  .mock-frame{
+    background:var(--code-bg); border-radius:8px; overflow:hidden; box-shadow:var(--shadow);
+  }
+  .mock-topbar{display:flex; align-items:center; gap:6px; padding:11px 14px; background:var(--code-line);}
+  .mock-dot{width:9px;height:9px;border-radius:50%; background:#4A5058;}
+  .mock-url{margin-left:10px; font-family:var(--mono); font-size:11px; color:#8A93A0; background:#1B2027; padding:4px 10px; border-radius:4px; flex:1;}
+  .mock-body{padding:0; aspect-ratio:16/10.5; position:relative; background:
+      repeating-linear-gradient(135deg, #171B21 0 2px, #14171C 2px 26px);
+      display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px;}
+  .mock-body .slot-label{font-family:var(--mono); font-size:12px; color:#6B7280; text-align:center; padding:0 30px;}
+  .mock-body .slot-title{font-family:var(--mono); font-size:11px; color:var(--accent-2); letter-spacing:0.08em; text-transform:uppercase;}
+
+  /* ---------- TRUST STRIP ---------- */
+  .trust{background:var(--ink); color:var(--paper-2); padding:20px 0;}
+  .trust .wrap{display:flex; gap:36px; flex-wrap:wrap; justify-content:space-between; font-family:var(--mono); font-size:13.5px;}
+  .trust strong{color:var(--accent-2); font-weight:500;}
+
+  /* ---------- PROBLEM ---------- */
+  .story{padding:88px 0; background:var(--white); border-bottom:1px solid var(--line);}
+  .story-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:64px; align-items:flex-start;}
+  .story h2{font-size:clamp(26px,3.2vw,34px); max-width:15ch;}
+  .callout{
+    border-left:3px solid var(--accent-3); background:#FBF2EF; padding:16px 20px; margin:20px 0;
+    font-size:14.5px; color:#5A2E22;
+  }
+  .story .lede{font-size:16.5px; color:var(--graphite); max-width:56ch;}
+  .story ul{list-style:none; margin:24px 0 0; padding:0; display:grid; gap:16px;}
+  .story li{display:flex; gap:12px; font-size:15px;}
+  .story li .mark{font-family:var(--mono); color:var(--accent); font-weight:600; flex-shrink:0;}
+
+  /* ---------- CURRICULUM ---------- */
+  .curriculum{padding:96px 0; background:var(--paper);}
+  .curriculum-head{max-width:640px; margin-bottom:52px;}
+  .curriculum-head h2{font-size:clamp(28px,3.4vw,38px);}
+  .mod-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .mod{background:var(--white); padding:26px 26px 24px;}
+  .mod-num{font-family:var(--mono); font-size:12px; color:var(--accent); margin-bottom:8px;}
+  .mod h3{font-size:17px; margin-bottom:8px;}
+  .mod p{font-size:14px; color:var(--graphite); margin:0;}
+
+  /* ---------- QUIZ ---------- */
+  .quiz-section{padding:96px 0 110px; background:var(--ink); color:var(--paper);}
+  .quiz-head{text-align:center; max-width:620px; margin:0 auto 46px;}
+  .quiz-head h2{color:var(--white); font-size:clamp(28px,3.6vw,38px);}
+  .quiz-head p{color:#B7BCC4; font-size:16px;}
+  .quiz-card{background:var(--white); color:var(--ink); border-radius:6px; max-width:640px; margin:0 auto; box-shadow:0 24px 60px rgba(0,0,0,0.45); overflow:hidden;}
+  .quiz-progress{display:flex; gap:6px; padding:22px 28px 0;}
+  .quiz-progress .seg{flex:1; height:4px; border-radius:2px; background:var(--paper-2); overflow:hidden;}
+  .quiz-progress .seg .fill{height:100%; width:0%; background:var(--accent); transition:width .35s ease;}
+  .quiz-body{padding:32px 28px 28px;}
+  .quiz-step-label{font-family:var(--mono); font-size:12px; color:var(--accent); margin-bottom:10px;}
+  .quiz-question{font-size:20px; font-family:var(--display); font-weight:600; margin-bottom:22px;}
+  .options{display:grid; gap:12px;}
+  .option{display:flex; align-items:center; gap:14px; text-align:left; padding:16px 18px; border:1.5px solid var(--line); background:var(--paper); border-radius:5px; font-size:15px; font-weight:500; color:var(--ink); transition:border-color .15s ease, background .15s ease;}
+  .option:hover{border-color:var(--accent); background:#F1F7F4;}
+  .option .dot{width:16px;height:16px;border-radius:50%; border:2px solid var(--graphite); flex-shrink:0;}
+  .quiz-nav{display:flex; justify-content:space-between; align-items:center; margin-top:24px;}
+  .link-btn{background:none;border:none;color:var(--graphite);font-size:14px;font-weight:600; text-decoration:underline; padding:6px 0;}
+  .quiz-footer-note{text-align:center; margin-top:22px; font-size:13px; color:#8A93A0;}
+
+  .result{display:none;} .result.show{display:block;}
+  .result-badge{display:inline-block; font-family:var(--mono); font-size:11.5px; font-weight:500; letter-spacing:0.04em; color:var(--white); background:var(--accent); padding:6px 14px; border-radius:20px; margin-bottom:16px;}
+  .result h3{font-size:24px; margin-bottom:6px;}
+  .result .price{font-family:var(--display); font-size:32px; color:var(--ink); margin:14px 0 4px;}
+  .result .price span{font-size:14px; color:var(--graphite); font-family:var(--sans); font-weight:500;}
+  .result ul{list-style:none; margin:20px 0; padding:0; display:grid; gap:10px;}
+  .result li{display:flex; gap:10px; font-size:14.5px;}
+  .result li::before{content:"›"; color:var(--accent); font-weight:700;}
+  .result .btn-primary{width:100%; justify-content:center; margin-top:8px;}
+
+  /* ---------- TIERS ---------- */
+  .tiers{padding:96px 0; background:var(--white);}
+  .tiers-head{text-align:center; max-width:600px; margin:0 auto 56px;}
+  .tier-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .tier{border:1.5px solid var(--line); border-radius:6px; padding:32px 26px; display:flex; flex-direction:column; position:relative;}
+  .tier.featured{border-color:var(--accent); background:#F7FBF9; box-shadow:var(--shadow);}
+  .tier .featured-flag{position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--accent); color:var(--white); font-family:var(--mono); font-size:11px; padding:5px 14px; border-radius:20px;}
+  .tier h3{font-size:19px;}
+  .tier .tier-price{font-family:var(--display); font-size:28px; margin:8px 0 18px;}
+  .tier ul{list-style:none; padding:0; margin:0 0 24px; display:grid; gap:11px; flex:1;}
+  .tier li{font-size:14px; display:flex; gap:9px; align-items:flex-start;}
+  .tier li::before{content:"✓"; color:var(--accent); font-weight:700; flex-shrink:0;}
+
+  /* ---------- FINAL CTA ---------- */
+  .final-cta{background:var(--paper-2); padding:80px 0; text-align:center; border-top:1px solid var(--line);}
+  .final-cta h2{font-size:clamp(26px,3.4vw,36px); max-width:18ch; margin:0 auto 18px;}
+  .final-cta p{max-width:48ch; margin:0 auto 30px; color:var(--graphite);}
+  footer{padding:30px 0; text-align:center; font-size:13px; color:var(--graphite); background:var(--paper); border-top:1px solid var(--line);}
+
+  @media (max-width:860px){
+    .hero-grid,.story-grid{grid-template-columns:1fr;}
+    .mock-frame{order:-1; margin-bottom:8px;}
+    .tier-grid,.mod-grid,.fit-grid{grid-template-columns:1fr;}
+    .trust .wrap{justify-content:center; text-align:center; gap:18px;}
+    .sticky-bar span.hide-mobile{display:none;}
+    .guarantee{grid-template-columns:1fr;}
+  }
+
+  /* ---------- STICKY CONVERSION BAR ---------- */
+  .sticky-bar{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:var(--ink); color:var(--paper);
+    transform:translateY(-100%); transition:transform .25s ease;
+    box-shadow:0 4px 18px rgba(0,0,0,0.2);
+  }
+  .sticky-bar.show{transform:translateY(0);}
+  .sticky-bar .wrap{display:flex; align-items:center; justify-content:space-between; padding:12px 24px;}
+  .sticky-bar .sb-label{font-family:var(--mono); font-size:13px; color:#B7BCC4;}
+  .sticky-bar .btn{padding:10px 20px; font-size:14px;}
+
+  /* ---------- FIT / QUALIFIER SECTION ---------- */
+  .fit{padding:88px 0; background:var(--paper); border-bottom:1px solid var(--line);}
+  .fit-head{max-width:640px; margin-bottom:44px;}
+  .fit-grid{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line);}
+  .fit-col{background:var(--white); padding:30px 30px 26px;}
+  .fit-col.no{background:#FCF8F6;}
+  .fit-col h3{font-family:var(--mono); font-size:13px; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:18px;}
+  .fit-col.yes h3{color:var(--accent);}
+  .fit-col.no h3{color:var(--accent-3);}
+  .fit-col ul{list-style:none; margin:0; padding:0; display:grid; gap:13px;}
+  .fit-col li{font-size:14.5px; display:flex; gap:10px; align-items:flex-start; color:var(--graphite);}
+  .fit-col.yes li::before{content:"✓"; color:var(--accent); font-weight:700; flex-shrink:0;}
+  .fit-col.no li::before{content:"✕"; color:var(--accent-3); font-weight:700; flex-shrink:0;}
+
+  /* ---------- GUARANTEE ---------- */
+  .guarantee{
+    margin-top:56px; border:1.5px solid var(--accent); border-radius:6px;
+    padding:32px 34px; display:grid; grid-template-columns:auto 1fr; gap:24px; align-items:flex-start;
+    background:#F7FBF9;
+  }
+  .guarantee .badge-icon{
+    width:52px; height:52px; border-radius:50%; background:var(--accent); color:var(--white);
+    display:flex; align-items:center; justify-content:center; font-family:var(--display); font-size:22px; flex-shrink:0;
+  }
+  .guarantee h3{font-size:19px; margin-bottom:8px;}
+  .guarantee p{font-size:14.5px; color:var(--graphite); margin:0; max-width:62ch;}
+
+  /* ---------- FAQ ---------- */
+  .faq{padding:96px 0; background:var(--white);}
+  .faq-head{max-width:600px; margin-bottom:44px;}
+  .faq-list{max-width:760px;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; padding:20px 4px;
+    display:flex; justify-content:space-between; align-items:center; gap:16px;
+    font-family:var(--display); font-size:16px; font-weight:600; color:var(--ink);
+  }
+  .faq-q .icon{font-family:var(--mono); color:var(--accent); font-size:18px; flex-shrink:0; transition:transform .2s ease;}
+  .faq-item.open .faq-q .icon{transform:rotate(45deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .25s ease;}
+  .faq-a p{font-size:14.5px; color:var(--graphite); padding:0 4px 20px; margin:0; max-width:64ch;}
+
+  /* ---------- CASE STUDY SLOT (social proof placeholder) ---------- */
+  .proof{padding:88px 0; background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .proof-head{max-width:640px; margin-bottom:40px;}
+  .proof-slot{
+    border:1.5px dashed var(--line); border-radius:6px; padding:40px 30px; text-align:center;
+    background:var(--white);
+  }
+  .proof-slot .mono-tag{display:block; margin-bottom:10px;}
+  .proof-slot p{color:var(--graphite); font-size:14.5px; max-width:52ch; margin:0 auto;}
+
+  /* ---------- DISCLAIMER ---------- */
+  .disclaimer{background:var(--paper); border-top:1px solid var(--line); padding:26px 0;}
+  .disclaimer p{max-width:820px; margin:0 auto; font-size:12px; color:#8A8F96; text-align:center; line-height:1.6;}
+</style>
+</head>
+<body>
+
+<div class="sticky-bar" id="sticky-bar">
+  <div class="wrap">
+    <span class="sb-label">AI Product Builder <span class="hide-mobile">— find your build track</span></span>
+    <a href="#quiz" class="btn btn-primary">Take the quiz →</a>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="mono-tag">AI Product Builder</span></div>
+      <h1>I build AI-powered products. <span class="hl">Now I'll show you how to build yours.</span></h1>
+      <p class="sub">A practitioner-led system for turning an idea into a real, shipped, sellable AI-powered digital product — built from the exact process behind GlowUp and LegacyVault. No income promises. Just the process.</p>
+      <div class="cta-row">
+        <a href="#quiz" class="btn btn-primary">Find your track — 90&nbsp;sec quiz →</a>
+        <a href="#curriculum" class="btn btn-ghost">See the curriculum</a>
+      </div>
+      <div class="microcopy">8 modules · self-paced or guided · built for people with no CS degree required.</div>
+    </div>
+
+    <!-- Product mockup / screenshot slot -->
+    <div class="mock-frame" aria-hidden="true">
+      <div class="mock-topbar">
+        <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+        <span class="mock-url">yourproduct.com</span>
+      </div>
+      <div class="mock-body">
+        <div class="slot-title">Screenshot slot</div>
+        <div class="slot-label">Drop in a real screenshot of GlowUp or LegacyVault here —<br>this is your strongest proof, stronger than any stock photo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRUST STRIP ================= -->
+<div class="trust">
+  <div class="wrap">
+    <span><strong>Built</strong> GlowUp — live AI grooming platform</span>
+    <span><strong>Built</strong> LegacyVault — estate planning tool</span>
+    <span><strong>Building</strong> SkillBridge — WIOA SaaS platform</span>
+    <span><strong>8 modules</strong>, one system</span>
+  </div>
+</div>
+
+<!-- ================= STORY ================= -->
+<section class="story">
+  <div class="wrap story-grid">
+    <div>
+      <span class="mono-tag">// why this exists</span>
+      <h2 style="margin-top:14px;">Most "AI business" content is a guru with no product.</h2>
+    </div>
+    <div>
+      <p class="lede">Most people teaching "make money with AI" have never shipped anything — they're teaching a funnel, not a product. This is different: it's the actual process used to design, build, and launch real AI-powered tools, taught by someone still in the middle of building them.</p>
+      <div class="callout">Full transparency: this is a new course with no track record of student results yet. What you're getting is a proven <em>process</em> — the same one used to build and ship real products — not a promise of income.</div>
+      <ul>
+        <li><span class="mark">01</span> You don't need to code — you need to know how to direct AI tools that write code for you.</li>
+        <li><span class="mark">02</span> You need a real problem to solve, not a "wrapper" idea that dies in a week.</li>
+        <li><span class="mark">03</span> You need the boring parts too: payments, hosting, and your first 10 customers.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FIT / QUALIFIER ================= -->
+<section class="fit">
+  <div class="wrap">
+    <div class="fit-head">
+      <span class="mono-tag">// is this for you</span>
+      <h2 style="margin-top:14px;">Built for a specific kind of person — not everyone.</h2>
+    </div>
+    <div class="fit-grid">
+      <div class="fit-col yes">
+        <h3>This is for you if</h3>
+        <ul>
+          <li>You've had a product idea for a while but never started because "I'm not technical"</li>
+          <li>You'd rather ship something small and real than keep planning something perfect</li>
+          <li>You want a repeatable process, not a one-off hack</li>
+          <li>You're willing to talk to real people before you build (Module 1 isn't optional)</li>
+        </ul>
+      </div>
+      <div class="fit-col no">
+        <h3>This is not for you if</h3>
+        <ul>
+          <li>You want a passive income promise instead of a process</li>
+          <li>You're looking for a get-rich-quick shortcut with no work involved</li>
+          <li>You're not willing to talk to potential users before building</li>
+          <li>You want done-for-you software with no involvement from you</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CURRICULUM ================= -->
+<section class="curriculum" id="curriculum">
+  <div class="wrap">
+    <div class="curriculum-head">
+      <span class="mono-tag">// the system</span>
+      <h2 style="margin-top:14px;">8 modules. One product, start to finish.</h2>
+    </div>
+    <div class="mod-grid">
+      <div class="mod"><div class="mod-num">01</div><h3>Find a Problem Worth Solving</h3><p>Validate a real problem before you write a line of code — talk to 10 people first.</p></div>
+      <div class="mod"><div class="mod-num">02</div><h3>Map the Product Before You Build</h3><p>Turn a vague idea into a concrete spec and wireframe using AI as your co-planner.</p></div>
+      <div class="mod"><div class="mod-num">03</div><h3>Build Without Traditional Coding</h3><p>Use AI coding tools to generate a working MVP — no CS degree required.</p></div>
+      <div class="mod"><div class="mod-num">04</div><h3>Make the AI Part Actually Useful</h3><p>The line between a real AI feature and a gimmick nobody pays for.</p></div>
+      <div class="mod"><div class="mod-num">05</div><h3>Payments, Hosting & the Boring Stuff</h3><p>Stripe, hosting, and the unglamorous plumbing that makes it a real business.</p></div>
+      <div class="mod"><div class="mod-num">06</div><h3>Price & Package It</h3><p>Single price vs. tiers vs. subscription — and how to position it so it doesn't look like every other AI wrapper.</p></div>
+      <div class="mod"><div class="mod-num">07</div><h3>Get Your First 10 Customers</h3><p>Where early AI-product customers actually come from — and it's not cold ads.</p></div>
+      <div class="mod"><div class="mod-num">08</div><h3>Systemize & Decide What's Next</h3><p>Turn one shipped product into a repeatable process instead of starting from zero.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="quiz-section" id="quiz">
+  <div class="wrap">
+    <div class="quiz-head">
+      <h2>Find your build track</h2>
+      <p>Four questions. We'll match you to the right level of support to actually ship something.</p>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-progress" id="quiz-progress"></div>
+      <div class="quiz-body" id="quiz-body"></div>
+    </div>
+    <p class="quiz-footer-note">Takes about 90 seconds · matched by fit, not a sales script</p>
+  </div>
+</section>
+
+<!-- ================= TIERS ================= -->
+<section class="tiers" id="tiers">
+  <div class="wrap">
+    <div class="tiers-head">
+      <span class="mono-tag">// the offer</span>
+      <h2 style="margin-top:14px;">Three ways to work the same 8-module system</h2>
+    </div>
+    <div class="tier-grid">
+      <div class="tier" data-tier="builder">
+        <h3>Builder Track</h3>
+        <div class="tier-price">$297</div>
+        <ul>
+          <li>All 8 modules, self-paced</li>
+          <li>AI prompt library for each build stage</li>
+          <li>Templates: spec doc, wireframe, launch post</li>
+          <li>Lifetime access to updates</li>
+        </ul>
+        <a href="#quiz" class="btn btn-ghost" style="justify-content:center;">Take the quiz first</a>
+      </div>
+      <div class="tier featured" data-tier="guided">
+        <span class="featured-flag">Most chosen</span>
+        <h3>Guided Build</h3>
+        <div class="tier-price">$997</div>
+        <ul>
+          <li>Everything in Builder Track</li>
+          <li>Weekly live build sessions</li>
+          <li>Community + feedback on your product</li>
+          <li>Module-by-module accountability</li>
+        </ul>
+        <p style="font-family:var(--mono); font-size:12px; color:var(--accent); margin:0 0 14px;">Cohort-based · capped at 20 seats so live sessions stay useful</p>
+        <a href="#quiz" class="btn btn-primary" style="justify-content:center;">Take the quiz first</a>
+      </div>
+      <div class="tier" data-tier="sprint">
+        <h3>Launch Sprint VIP</h3>
+        <div class="tier-price">$2,997</div>
+        <ul>
+          <li>Everything in Guided Build</li>
+          <li>6 private 1:1 build sessions</li>
+          <li>Direct review of your actual product</li>
+          <li>Help shipping within 8 weeks</li>
+        </ul>
+        <p style="font-family:var(--mono); font-size:12px; color:var(--accent); margin:0 0 14px;">Limited to 5 people per cohort — 1:1 time is the constraint</p>
+        <a href="#quiz" class="btn btn-ghost" style="justify-content:center;">Take the quiz first</a>
+      </div>
+    </div>
+
+    <div class="guarantee">
+      <div class="badge-icon">✓</div>
+      <div>
+        <h3>The Module 1–3 Guarantee</h3>
+        <p>Complete Modules 1 through 3 — problem validation, product spec, and your first working prototype — and if you don't have a real, validated problem statement and prototype in hand, email within 30 days for a full refund. No "results not typical" fine print games: do the work in the first three modules, and if it doesn't produce that, you get your money back.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROOF SLOT ================= -->
+<section class="proof">
+  <div class="wrap">
+    <div class="proof-head">
+      <span class="mono-tag">// results</span>
+      <h2 style="margin-top:14px;">This section is intentionally empty.</h2>
+    </div>
+    <div class="proof-slot">
+      <span class="mono-tag">Case study slot</span>
+      <p>As students finish Module 1–8 and ship real products, their before/after screenshots and quotes go here. No fabricated testimonials — this space stays empty until there's something real to show, and gets replaced the day it exists.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="faq">
+  <div class="wrap">
+    <div class="faq-head">
+      <span class="mono-tag">// before you decide</span>
+      <h2 style="margin-top:14px;">Questions worth asking</h2>
+    </div>
+    <div class="faq-list" id="faq-list">
+      <div class="faq-item">
+        <button class="faq-q"><span>I'm not technical at all — can I really do this?</span><span class="icon">+</span></button>
+        <div class="faq-a"><p>Yes — the course is built specifically around AI tools that write code for you. You need to be willing to learn how to direct those tools clearly, not write code yourself. If you can write a detailed instruction, you can do this.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>How much time does this actually take per week?</span><span class="icon">+</span></button>
+        <div class="faq-a"><p>Plan for 3–5 hours a week across 6–8 weeks. Module 1 (talking to 10 people) usually takes the longest calendar time, even though it's not technically hard — it depends on how fast you can schedule conversations.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Will this guarantee me income?</span><span class="icon">+</span></button>
+        <div class="faq-a"><p>No — and be skeptical of anyone who tells you otherwise. This teaches you the process to build and ship a real product. What you earn from it depends on the problem you pick, the work you put in, and factors outside anyone's control. See the full disclaimer below.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>What if I don't finish?</span><span class="icon">+</span></button>
+        <div class="faq-a"><p>You keep lifetime access and can pick back up anytime. The Module 1–3 guarantee only applies within the first 30 days, so if life gets in the way, reach out before that window closes.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Why should I trust someone with no track record teaching this yet?</span><span class="icon">+</span></button>
+        <div class="faq-a"><p>Fair question. You shouldn't trust promises — trust the process, and check the actual products (GlowUp, LegacyVault) linked in the trust strip above. This course teaches exactly what was used to build those, nothing more, nothing hidden.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="final-cta">
+  <div class="wrap">
+    <h2>Stop consuming AI content. Start shipping.</h2>
+    <p>Take the quiz, get matched to a track, and start Module 1 this week.</p>
+    <a href="#quiz" class="btn btn-primary">Find your build track →</a>
+  </div>
+</section>
+
+<div class="disclaimer">
+  <div class="wrap">
+    <p>Earnings & results disclaimer: AI Product Builder is an educational course. It does not guarantee income, sales, or business results of any kind. Any examples of products built (including GlowUp, LegacyVault, and SkillBridge) are the instructor's own work and are not representative of results any student should expect. Your results depend on your own effort, market, and circumstances outside our control.</p>
+  </div>
+</div>
+<footer>© <span id="year"></span> AI Product Builder · Hollen Holdings LLC</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+(function captureUTMs(){
+  const params = new URLSearchParams(window.location.search);
+  const keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'];
+  const stored = JSON.parse(localStorage.getItem('aipb_utms') || '{}');
+  let changed = false;
+  keys.forEach(k => { if(params.get(k)){ stored[k] = params.get(k); changed = true; } });
+  if(changed || !stored.first_landed){
+    if(!stored.first_landed) stored.first_landed = new Date().toISOString();
+    localStorage.setItem('aipb_utms', JSON.stringify(stored));
+  }
+})();
+function getStoredUTMQuery(){
+  const stored = JSON.parse(localStorage.getItem('aipb_utms') || '{}');
+  const p = new URLSearchParams();
+  Object.entries(stored).forEach(([k,v]) => { if(k !== 'first_landed') p.set(k,v); });
+  return p.toString();
+}
+
+const QUESTIONS = [
+  { key:'experience', label:'Step 1 of 4', q:"How comfortable are you with tech/tools right now?",
+    options:[
+      {text:"New to this — I've never built anything technical", weight:{builder:2,guided:1,sprint:0}},
+      {text:"Comfortable with tools like Notion, Canva, no-code apps", weight:{builder:0,guided:2,sprint:1}},
+      {text:"I've built something before, just not with AI tools", weight:{builder:0,guided:1,sprint:2}},
+    ]},
+  { key:'support', label:'Step 2 of 4', q:"How much support do you want while building?",
+    options:[
+      {text:"Self-directed — give me the system, I'll run with it", weight:{builder:2,guided:0,sprint:0}},
+      {text:"Weekly structure and a group to build alongside", weight:{builder:0,guided:2,sprint:0}},
+      {text:"Direct 1:1 review of my actual product", weight:{builder:0,guided:0,sprint:2}},
+    ]},
+  { key:'goal', label:'Step 3 of 4', q:"What's the goal for your first product?",
+    options:[
+      {text:"Learn the process, build something small to start", weight:{builder:2,guided:1,sprint:0}},
+      {text:"Actually ship and get real users in 2-3 months", weight:{builder:0,guided:2,sprint:1}},
+      {text:"Ship fast and get it revenue-ready within 8 weeks", weight:{builder:0,guided:0,sprint:2}},
+    ]},
+  { key:'investment', label:'Step 4 of 4', q:"What feels right to invest in this right now?",
+    options:[
+      {text:"Something affordable to start learning the system", weight:{builder:2,guided:0,sprint:0}},
+      {text:"A mid-level investment with real support", weight:{builder:0,guided:2,sprint:0}},
+      {text:"I'm ready to invest in hands-on 1:1 help", weight:{builder:0,guided:0,sprint:2}},
+    ]},
+];
+
+const TIER_RESULTS = {
+  builder:{badge:"Your Match", name:"Builder Track", price:"$297", priceNote:"one-time",
+    desc:"You're ready to learn the system self-paced and build at your own speed.",
+    features:["All 8 modules, self-paced","AI prompt library for each stage","Spec/wireframe/launch templates","Lifetime access to updates"],
+    cta:"Start Builder Track →", checkoutBase:"https://checkout.example.com/builder"},
+  guided:{badge:"Your Match · Most Chosen", name:"Guided Build", price:"$997", priceNote:"one-time",
+    desc:"You'll move fastest with weekly structure and a community building alongside you.",
+    features:["Everything in Builder Track","Weekly live build sessions","Community + product feedback","Module-by-module accountability"],
+    cta:"Start Guided Build →", checkoutBase:"https://checkout.example.com/guided"},
+  sprint:{badge:"Your Match", name:"Launch Sprint VIP", price:"$2,997", priceNote:"one-time",
+    desc:"You want hands-on help shipping a real, sellable product fast.",
+    features:["Everything in Guided Build","6 private 1:1 build sessions","Direct review of your product","Help shipping within 8 weeks"],
+    cta:"Start Launch Sprint →", checkoutBase:"https://checkout.example.com/sprint"},
+};
+
+let currentStep = 0;
+let scores = {builder:0, guided:0, sprint:0};
+let answered = [];
+const quizBody = document.getElementById('quiz-body');
+const quizProgress = document.getElementById('quiz-progress');
+
+function renderProgress(){
+  quizProgress.innerHTML = '';
+  const total = QUESTIONS.length + 1;
+  for(let i=0;i<total;i++){
+    const seg=document.createElement('div'); seg.className='seg';
+    const fill=document.createElement('div'); fill.className='fill';
+    fill.style.width = (i <= currentStep ? '100%':'0%');
+    seg.appendChild(fill); quizProgress.appendChild(seg);
+  }
+}
+function renderQuestion(){
+  const step = QUESTIONS[currentStep];
+  quizBody.innerHTML='';
+  const label=document.createElement('div'); label.className='quiz-step-label'; label.textContent=step.label;
+  const q=document.createElement('div'); q.className='quiz-question'; q.textContent=step.q;
+  const opts=document.createElement('div'); opts.className='options';
+  step.options.forEach(opt=>{
+    const btn=document.createElement('button'); btn.className='option';
+    btn.innerHTML='<span class="dot"></span><span>'+opt.text+'</span>';
+    btn.addEventListener('click', ()=>selectOption(opt));
+    opts.appendChild(btn);
+  });
+  const nav=document.createElement('div'); nav.className='quiz-nav';
+  if(currentStep>0){
+    const back=document.createElement('button'); back.className='link-btn'; back.textContent='← Back';
+    back.addEventListener('click', goBack); nav.appendChild(back);
+  } else { nav.appendChild(document.createElement('span')); }
+  quizBody.appendChild(label); quizBody.appendChild(q); quizBody.appendChild(opts); quizBody.appendChild(nav);
+  renderProgress();
+}
+function selectOption(opt){
+  answered[currentStep]=opt;
+  Object.keys(opt.weight).forEach(k=>scores[k]+=opt.weight[k]);
+  currentStep++;
+  if(currentStep < QUESTIONS.length){ renderQuestion(); } else { renderResult(); }
+}
+function goBack(){
+  const prev=answered[currentStep-1];
+  if(prev){ Object.keys(prev.weight).forEach(k=>scores[k]-=prev.weight[k]); }
+  currentStep--; renderQuestion();
+}
+function renderResult(){
+  currentStep = QUESTIONS.length; renderProgress();
+  let winner='guided', top=-1;
+  Object.entries(scores).forEach(([k,v])=>{ if(v>top){top=v; winner=k;} });
+  const r = TIER_RESULTS[winner];
+  quizBody.innerHTML='';
+  const wrap=document.createElement('div'); wrap.className='result show';
+  const utmQuery=getStoredUTMQuery();
+  const checkoutUrl=r.checkoutBase+(utmQuery?('?'+utmQuery):'');
+  wrap.innerHTML=`
+    <div class="result-badge">${r.badge}</div>
+    <h3>${r.name}</h3>
+    <p style="color:var(--graphite); font-size:14.5px;">${r.desc}</p>
+    <div class="price">${r.price} <span>${r.priceNote}</span></div>
+    <ul>${r.features.map(f=>'<li>'+f+'</li>').join('')}</ul>
+    <a href="${checkoutUrl}" class="btn btn-primary" id="checkout-link">${r.cta}</a>
+    <button class="link-btn" id="retake-quiz" style="display:block; margin:16px auto 0; text-align:center;">Retake the quiz</button>
+  `;
+  quizBody.appendChild(wrap);
+  document.getElementById('checkout-link').addEventListener('click', ()=>{
+    if(window.gtag){ gtag('event','select_tier',{tier:winner}); }
+    if(window.fbq){ fbq('track','InitiateCheckout',{content_name:r.name}); }
+  });
+  document.getElementById('retake-quiz').addEventListener('click', ()=>{
+    currentStep=0; scores={builder:0,guided:0,sprint:0}; answered=[];
+    renderQuestion();
+  });
+}
+renderQuestion();
+
+/* ---------------- STICKY BAR ---------------- */
+(function(){
+  const bar = document.getElementById('sticky-bar');
+  const heroEnd = document.querySelector('.hero').offsetHeight;
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > heroEnd){ bar.classList.add('show'); }
+    else { bar.classList.remove('show'); }
+  }, { passive:true });
+})();
+
+/* ---------------- FAQ ACCORDION ---------------- */
+(function(){
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    const ans = item.querySelector('.faq-a');
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o => {
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
